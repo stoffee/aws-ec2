@@ -29,7 +29,7 @@ resource "aws_instance" "demo" {
 
   tags = {
     Name = random_pet.server.id
-    Owner = "MyName"
+    Owner = "cd"
     TTL   = "24"
   }
 }
