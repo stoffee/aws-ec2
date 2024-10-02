@@ -34,6 +34,9 @@ resource "aws_instance" "demo" {
     Owner = "cd"
     TTL   = "24"
   }
+provisioner "local-exec" {
+    command = "echo hello >> hello.txt"
+  }
 }
 
 output "private_ip" {
