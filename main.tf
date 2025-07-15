@@ -2,7 +2,7 @@ resource "random_pet" "server" {
 }
 
 provider "aws" {
-  region = "us-west-2"
+  region = "us-west-1"
 }
 
 data "aws_ami" "ubuntu" {
