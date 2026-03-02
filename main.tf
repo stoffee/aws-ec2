@@ -5,25 +5,16 @@ provider "aws" {
   region = "us-west-1"
 }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
+# HC-approved base AMI with EDR (HC-COMPUTE-011)
+module "base_ami" {
+  source = "git::ssh://git@github.com/stoffee/terraform-aws-hc-base-ami.git"
 
-  filter {
-    name   = "name"
-    #values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
+  os_flavor    = "rhel-9"
+  architecture = "x86_64"
 }
 
 resource "aws_instance" "demo" {
-  ami = data.aws_ami.ubuntu.id
+  ami = module.base_ami.ami_id
 
   #instance_type = "t2.micro"
   instance_type = "t2.small"
